@@ -44,7 +44,6 @@ print(f"Greatest Increase in profits: {maxdate}(${maxprofit})")
 print(f"Greatest Decrease in profits: {mindate}(${minprofit})")
 
 
-exit()
 output_file=os.path.join("budget_data_complete")
 with open(file_to_output,"w") as txt_file:
     txt_file.write(output)
