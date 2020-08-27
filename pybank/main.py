@@ -1,36 +1,47 @@
 import os
 import csv
 
-csvpath=os.path.join('..','homework','python_homework''budget_data.csv')
+csvpath=os.path.join('resources','budget_data.csv')
 
 date=[]
 profit_loses=[]
 monthly_change=[]
+total_months=0
+net_total=0
+previous_net=0
 
-with open(udemy_csv,encoding='utf-8') as csvfile:
+with open(csvpath,encoding='utf-8') as csvfile:
     csvreader=csv.reader(csvfile,delimiter=',')
+    csv_header = next(csvreader)
+    firstrow=next(csvreader)
+    date.append(firstrow[0])
+    profit_loses.append(int(firstrow[1]))
+    previous_net=int(firstrow[1])
     for row in csvreader:
-    csv_header=next(csvreader)
         date.append(row[0])
         profit_loses.append(int(row[1]))
-
+        net_change=int(row[1])-previous_net
+        previous_net=int(row[1])
+        monthly_change.append(net_change)
 
 print("Finacial Analysis")
 print("----------------------")
-print("Total Months =..."+str(len(date)))
+print("Total Months ="+str(len(date)))
 
 net_total=sum(profit_loses)
-print("Total=..." + net_total)
+print(f"Total=: {net_total}")
 
-i in range((profit_loses)-1):
-    monthly_change.append(profit_loses[i+1]-profit_loses[i])
 
 maxprofit=max(monthly_change)
+maxindex= monthly_change.index(maxprofit)
+maxdate=date[maxindex+1]
 minprofit=min(monthly_change)
-average={round(sum(monthly_change/len(monthly_change),2))}
-print("Average Change =..."+str(average))
-print("Greatest Increase in profits =..."+ str(maxprofit))
-print("Greatest Decrease in profits = ..."+str(minprofit))
+minindex=monthly_change.index(minprofit)
+mindate=date[minindex+1]
+average=round(sum(monthly_change)/len(monthly_change),2)
+print("Average Change ="+str(average))
+print(f"Greatest Increase in profits: {maxdate}(${maxprofit})")
+print(f"Greatest Decrease in profits: {mindate}(${minprofit})")
 
 
 exit()
